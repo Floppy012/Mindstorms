@@ -255,7 +255,7 @@ public class RobotController {
 
 			Dieses Array is in diesem Falle nützlich, da ich für jede Position im Display einen char zwischenspeichern kann.
 		 */
-		char[][] positions = new char[MAX_COLUMNS - 1][MAX_LINES];
+		char[][] positions = new char[MAX_COLUMNS][MAX_LINES];
 
 		//Unsere erste For-Schleife, jedes Mal wenn sie von Vorn beginnt, wird ein neuer Buchstabe ins Spiel gebracht.
 		for (int n = 0; n < 20; n++) {
@@ -273,8 +273,9 @@ public class RobotController {
 
 			//Mit dieser For-Schleife gehen wir durch alle Spalten
 			for (int x = 0; x < MAX_COLUMNS; x++) {
+
 				//Mit dieser durch alle Zeilen
-				for (int y = MAX_LINES; y > 0; y--) {
+				for (int y = MAX_LINES; y >= 0; y--) {
 					//Wir möchten ja nicht direkt den Anfangsbuchstaben bewegen, deswegen überspringen wir diesen.
 					if (x == column && y == 0) continue;
 
@@ -291,13 +292,10 @@ public class RobotController {
 
 						//Nun updaten wir unser positionen array
 						positions[x][y + 1] = positions[x][y];
-
-						//Da aktuell an der alten Position kein Buchstabe mehr steht, setzen wir die Stelle in unserem Array auf 0.
-						positions[x][y] = 0;
-					} else {
-						//Der Buchstabe existiert nicht mehr, daher kann die Position auch in unserem positionen array auf 0 gesetzt werden.
-						positions[x][y] = 0;
 					}
+
+					//Da an der vorherigen Stelle nun kein Buchstabe mehr steht, setzen wir den Wert in unserem Positionen array auf 0.
+					positions[x][y] = 0;
 				}
 			}
 		}
