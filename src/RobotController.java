@@ -65,22 +65,22 @@ public class RobotController {
 			case 'l':
 				//"l" für Left (wir beginnen von links)
 				start = 0;
-				end = 16;
+				end = MAX_COLUMNS;
 				break;
 			case 'r':
 				//"r" für Right (wir beginnen von rechts)
-				start = 16;
+				start = MAX_COLUMNS;
 				end = 0;
 				break;
 			case 't':
 				//"t" für Top (wir beginnen von oben)
 				start = 0;
-				end = 4;
+				end = MAX_LINES;
 				vertical = true;
 				break;
 			case 'b':
 				//"b" fpr Bottom (wir beginnen von unten)
-				start = 4;
+				start = MAX_LINES;
 				end = 0;
 				vertical = true;
 				break;
@@ -113,6 +113,8 @@ public class RobotController {
 				} else if (n == MAX_LINES && start > end) {
 					//Wenn die Zeile der maximalen Zeile gleicht und wir von unten nach oben "fahren", dann war Zeile 0 die vorherige Zeile
 					LCD.clear(0);
+				} else if (start > end) {
+					LCD.clear(n + 1);
 				} else {
 					//In allen anderen Fällen leeren wir einfach die vorherige Zeile
 					LCD.clear(n - 1);
@@ -296,6 +298,18 @@ public class RobotController {
 
 					//Da an der vorherigen Stelle nun kein Buchstabe mehr steht, setzen wir den Wert in unserem Positionen array auf 0.
 					positions[x][y] = 0;
+
+					try {
+						Thread.sleep(100L);
+					} catch (InterruptedException ex) {
+						return;
+					}
+				}
+
+				try {
+					Thread.sleep(150L);
+				} catch (InterruptedException ex) {
+					return;
 				}
 			}
 		}
