@@ -129,7 +129,7 @@ public class RobotController {
 	public void matrix() {
 		char[] letters = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
 
-		char[][] positions = new char[MAX_COLUMNS - 1][MAX_LINES];
+		char[][] positions = new char[MAX_COLUMNS][MAX_LINES];
 
 		for (int n = 0; n < 20; n++) {
 			char letter = letters[RAND.nextInt(letters.length)];
@@ -139,7 +139,7 @@ public class RobotController {
 			LCD.drawChar(letter, column, 0);
 
 			for (int x = 0; x < MAX_COLUMNS; x++) {
-				for (int y = MAX_LINES; y > 0; y--) {
+				for (int y = MAX_LINES; y >= 0; y--) {
 					if (x == column && y == 0) continue;
 					if (positions[x][y] == 0) continue;
 
@@ -148,10 +148,9 @@ public class RobotController {
 					if (y + 1 < MAX_LINES) {
 						LCD.drawChar(positions[x][y], x, y + 1);
 						positions[x][y + 1] = positions[x][y];
-						positions[x][y] = 0;
-					} else {
-						positions[x][y] = 0;
 					}
+
+					positions[x][y] = 0;
 				}
 			}
 		}
