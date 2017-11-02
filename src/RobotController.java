@@ -151,6 +151,18 @@ public class RobotController {
 					}
 
 					positions[x][y] = 0;
+
+					try {
+						Thread.sleep(100L);
+					} catch (InterruptedException ex) {
+						return;
+					}
+				}
+
+				try {
+					Thread.sleep(150L);
+				} catch (InterruptedException ex) {
+					return;
 				}
 			}
 		}
