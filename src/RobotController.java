@@ -49,19 +49,19 @@ public class RobotController {
 		switch (direction) {
 			case 'l':
 				start = 0;
-				end = 16;
+				end = MAX_COLUMNS;
 				break;
 			case 'r':
-				start = 16;
+				start = MAX_COLUMNS;
 				end = 0;
 				break;
 			case 't':
 				start = 0;
-				end = 4;
+				end = MAX_LINES;
 				vertical = true;
 				break;
 			case 'b':
-				start = 4;
+				start = MAX_LINES;
 				end = 0;
 				vertical = true;
 				break;
@@ -80,6 +80,8 @@ public class RobotController {
 					LCD.clear(MAX_LINES);
 				} else if (n == MAX_LINES && start > end) {
 					LCD.clear(0);
+				} else if (start > end) {
+					LCD.clear(n + 1);
 				} else {
 					LCD.clear(n - 1);
 				}
