@@ -20,6 +20,7 @@ public class Main {
 	private static void testBatteryStatus(RobotController controller) {
 		controller.showBatteryState();
 
+		//Wir warten für zwei Sekunden, damit man sich den kram auch aufm Display anschauen kann.
 		try {
 			Thread.sleep(2000L);
 		} catch (InterruptedException ex) {

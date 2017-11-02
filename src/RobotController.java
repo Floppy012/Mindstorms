@@ -114,6 +114,7 @@ public class RobotController {
 					//Wenn die Zeile der maximalen Zeile gleicht und wir von unten nach oben "fahren", dann war Zeile 0 die vorherige Zeile
 					LCD.clear(0);
 				} else if (start > end) {
+					//Wenn der Text von unten nach oben "fährt", dann ist die zeile, die geleert werden muss, die darunter.
 					LCD.clear(n + 1);
 				} else {
 					//In allen anderen Fällen leeren wir einfach die vorherige Zeile
@@ -299,6 +300,7 @@ public class RobotController {
 					//Da an der vorherigen Stelle nun kein Buchstabe mehr steht, setzen wir den Wert in unserem Positionen array auf 0.
 					positions[x][y] = 0;
 
+					//Nun warten wir kurz, damit das alles nicht zu schnell geht.
 					try {
 						Thread.sleep(100L);
 					} catch (InterruptedException ex) {
@@ -306,6 +308,7 @@ public class RobotController {
 					}
 				}
 
+				//Hier warten wir auch nochmal, damit nicht alles so schnell geht.
 				try {
 					Thread.sleep(150L);
 				} catch (InterruptedException ex) {
