@@ -217,7 +217,7 @@ public class RobotController {
 		LCD.drawString("Spannung: " + (Math.round(voltage * 100d) / 100d) + " V", 0, MAX_LINES / 2 - 1);
 
 		//Die zweite Zeile wird in der Mitte geschrieben
-		LCD.drawString("Ladestatus: " + (Math.round(percentage * 100d) / 100d) + " %", 0, MAX_LINES / 2);
+		LCD.drawString("Status: " + (Math.round(percentage * 100d) / 100d) + " %", 0, MAX_LINES / 2);
 
 		//Die dritte Zeile wird eine Zeile unter der Mitte geschrieben
 		/*
@@ -233,7 +233,7 @@ public class RobotController {
 
 			Das ganze würde so natürlich nicht funktionieren, da man sowas nur mit einem Ternären Operator realisieren kann.
 		 */
-		LCD.drawString("Wiederaufladbar: " + (Battery.isRechargeable() ? "Ja" : "Nein"), 0, MAX_LINES / 2 + 1);
+		LCD.drawString("Aufladbar: " + (Battery.isRechargeable() ? "Ja" : "Nein"), 0, MAX_LINES / 2 + 1);
 	}
 
 	/**
@@ -261,12 +261,13 @@ public class RobotController {
 		char[][] positions = new char[MAX_COLUMNS][MAX_LINES];
 
 		//Unsere erste For-Schleife, jedes Mal wenn sie von Vorn beginnt, wird ein neuer Buchstabe ins Spiel gebracht.
-		for (int n = 0; n < 20; n++) {
+		
+		for (int n = 0; n < 80; n++) {
 			//Hier holen wir uns mittels Random einen zufälligen Buchstaben aus dem oben definierten Array
 			char letter = letters[RAND.nextInt(letters.length)];
 
 			//Nun suchen wir uns eine Spalte aus, in der wir den Buchstaben platzieren.
-			int column = RAND.nextInt(MAX_COLUMNS);
+			int column = RAND.nextInt(MAX_COLUMNS - 1);
 
 			//Der Buchstabe wird in unser positionen array geschrieben
 			positions[column][0] = letter;
@@ -276,9 +277,9 @@ public class RobotController {
 
 			//Mit dieser For-Schleife gehen wir durch alle Spalten
 			for (int x = 0; x < MAX_COLUMNS; x++) {
-
 				//Mit dieser durch alle Zeilen
-				for (int y = MAX_LINES; y >= 0; y--) {
+				
+				for (int y = MAX_LINES - 1; y >= 0; y--) {
 					//Wir möchten ja nicht direkt den Anfangsbuchstaben bewegen, deswegen überspringen wir diesen.
 					if (x == column && y == 0) continue;
 
@@ -302,17 +303,10 @@ public class RobotController {
 
 					//Nun warten wir kurz, damit das alles nicht zu schnell geht.
 					try {
-						Thread.sleep(100L);
+						Thread.sleep(50L);
 					} catch (InterruptedException ex) {
 						return;
 					}
-				}
-
-				//Hier warten wir auch nochmal, damit nicht alles so schnell geht.
-				try {
-					Thread.sleep(150L);
-				} catch (InterruptedException ex) {
-					return;
 				}
 			}
 		}
