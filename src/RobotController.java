@@ -116,6 +116,8 @@ public class RobotController {
 				n++;
 			}
 		}
+
+		LCD.clear();
 	}
 
 	public void showBatteryState() {
@@ -162,5 +164,7 @@ public class RobotController {
 				}
 			}
 		}
+
+		LCD.clear();
 	}
 }
