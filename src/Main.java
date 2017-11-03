@@ -1,10 +1,14 @@
 
+import lejos.nxt.Button;
+
 public class Main {
 
   public static void main(String[] args) {
     RobotController controller = new RobotController();
 
-    testMatrix(controller);
+	  Button.ESCAPE.waitForPressAndRelease();
+
+	  testButtons(controller);
   }
 
   private static void testMarquee(RobotController controller) {
@@ -27,6 +31,33 @@ public class Main {
 
   private static void testMatrix(RobotController controller) {
     controller.matrix();
-  }
+	}
+
+	private static void testButtons(RobotController controller) {
+		boolean escOnce = false;
+		while (!Button.ENTER.isDown()) {
+			if (Button.ESCAPE.isDown()) {
+				if (escOnce) {
+					controller.matrix();
+					escOnce = false;
+				} else {
+					controller.marquee("Test", 'b');
+					escOnce = true;
+				}
+
+				continue;
+			}
+
+			if (Button.LEFT.isDown()) {
+				controller.marquee("Text", 'r');
+				continue;
+			}
+
+			if (Button.RIGHT.isDown()) {
+				controller.marquee("Text", 'l');
+				continue;
+			}
+		}
+	}
 
 }
