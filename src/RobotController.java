@@ -124,24 +124,24 @@ public class RobotController {
 
 		LCD.clear();
 		LCD.drawString("Spannung: " + (Math.round(voltage * 100d) / 100d) + " V", 0, MAX_LINES / 2 - 1);
-		LCD.drawString("Ladestatus: " + (Math.round(percentage * 100d) / 100d) + " %", 0, MAX_LINES / 2);
-		LCD.drawString("Wiederaufladbar: " + (Battery.isRechargeable() ? "Ja" : "Nein"), 0, MAX_LINES / 2 + 1);
+		LCD.drawString("Status: " + (Math.round(percentage * 100d) / 100d) + " %", 0, MAX_LINES / 2);
+		LCD.drawString("Aufladbar: " + (Battery.isRechargeable() ? "Ja" : "Nein"), 0, MAX_LINES / 2 + 1);
 	}
 
 	public void matrix() {
 		char[] letters = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
 
 		char[][] positions = new char[MAX_COLUMNS][MAX_LINES];
-
-		for (int n = 0; n < 20; n++) {
+		for (int n = 0; n < 80; n++) {
 			char letter = letters[RAND.nextInt(letters.length)];
-			int column = RAND.nextInt(MAX_COLUMNS);
+			int column = RAND.nextInt(MAX_COLUMNS - 1);
+
 			positions[column][0] = letter;
 
 			LCD.drawChar(letter, column, 0);
 
 			for (int x = 0; x < MAX_COLUMNS; x++) {
-				for (int y = MAX_LINES; y >= 0; y--) {
+				for (int y = MAX_LINES - 1; y >= 0; y--) {
 					if (x == column && y == 0) continue;
 					if (positions[x][y] == 0) continue;
 
@@ -155,16 +155,10 @@ public class RobotController {
 					positions[x][y] = 0;
 
 					try {
-						Thread.sleep(100L);
+						Thread.sleep(50L);
 					} catch (InterruptedException ex) {
 						return;
 					}
-				}
-
-				try {
-					Thread.sleep(150L);
-				} catch (InterruptedException ex) {
-					return;
 				}
 			}
 		}
