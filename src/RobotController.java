@@ -190,6 +190,8 @@ public class RobotController {
 			}
 		}
 
+		//Nach der Aktion leeren wir das Display (aufräumen ist immer gut)
+		LCD.clear();
 	}
 
 	/**
@@ -310,5 +312,8 @@ public class RobotController {
 				}
 			}
 		}
+
+		//Nachdem die Aktion fertig ist, leeren wir das Display (aufräumen ist immer gut)
+		LCD.clear();
 	}
 }
