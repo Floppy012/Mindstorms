@@ -1,14 +1,21 @@
 
 import lejos.nxt.Button;
+import lejos.nxt.MotorPort;
 
 public class Main {
 
   public static void main(String[] args) {
     RobotController controller = new RobotController();
 
-	  Button.ESCAPE.waitForPressAndRelease();
+    //Button.ESCAPE.waitForPressAndRelease();
+    //testButtons(controller);
+    MotorPair pair = MotorPair.get(MotorPort.A, MotorPort.C);
+    pair.setAcceleration(500);
 
-	  testButtons(controller);
+    DrivePattern pattern = new DrivePattern(pair);
+	  pattern.driveZigZag();
+
+    //System.out.println(DriveUtil.getRotationValue(5, MetricSystem.CENTIMETERS));
   }
 
   private static void testMarquee(RobotController controller) {
@@ -31,33 +38,33 @@ public class Main {
 
   private static void testMatrix(RobotController controller) {
     controller.matrix();
-	}
+  }
 
-	private static void testButtons(RobotController controller) {
-		boolean escOnce = false;
-		while (!Button.ENTER.isDown()) {
-			if (Button.ESCAPE.isDown()) {
-				if (escOnce) {
-					controller.matrix();
-					escOnce = false;
-				} else {
-					controller.marquee("Test", 'b');
-					escOnce = true;
-				}
+  private static void testButtons(RobotController controller) {
+    boolean escOnce = false;
+    while (!Button.ENTER.isDown()) {
+      if (Button.ESCAPE.isDown()) {
+        if (escOnce) {
+          controller.matrix();
+          escOnce = false;
+        } else {
+          controller.marquee("Test", 'b');
+          escOnce = true;
+        }
 
-				continue;
-			}
+        continue;
+      }
 
-			if (Button.LEFT.isDown()) {
-				controller.marquee("Text", 'r');
-				continue;
-			}
+      if (Button.LEFT.isDown()) {
+        controller.marquee("Text", 'r');
+        continue;
+      }
 
-			if (Button.RIGHT.isDown()) {
-				controller.marquee("Text", 'l');
-				continue;
-			}
-		}
-	}
+      if (Button.RIGHT.isDown()) {
+        controller.marquee("Text", 'l');
+        continue;
+      }
+    }
+  }
 
 }
